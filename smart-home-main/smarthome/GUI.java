@@ -128,7 +128,7 @@ public class GUI extends JFrame {
 
 			if (position != null) {
 				Color lightColor = light.isOn() ? Color.YELLOW : Color.BLACK;
-				drawLight(g2d, position, lightColor, 20);
+				drawLight(g2d, position, lightColor, 20, (float) light.getBrightness()/100);
 
 				// Draw label
 				g.setColor(Color.BLACK);
@@ -202,6 +202,13 @@ public class GUI extends JFrame {
 		}
 	}
 
+	private void drawLight(Graphics2D g2d, Point light, Color lightColor, int radius, float dim) {
+		float dist[] = {0.2f, 1.0f};
+		Color color[] = {lightColor, new Color(0, 0, 0, 0)};
+		RadialGradientPaint p = new RadialGradientPaint(light, (float) (radius * (0.5 + dim)), dist, color);
+		g2d.setPaint(p);
+		g2d.fillRect(light.x - 20, light.y - 20, 40, 40);
+	}
 	private void drawLight(Graphics2D g2d, Point light, Color lightColor, int radius) {
 		float dist[] = {0.2f, 1.0f};
 		Color color[] = {lightColor, new Color(0, 0, 0, 0)};
